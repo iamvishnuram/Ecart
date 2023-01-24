@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+{% block metadescription %}
+
+    {{product.description|truncatewords:155}}
+
+{% endblock metadescription %}
+
+{% block title %}
+
+{% if category %}
+    {{product.name}}
+{% endif %}
+
+{% endblock title %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+            <div style="min-width: 20rem; margin-top:10%">
+                <img src="{{product.image.url}}" alt="{{product.name}}">
+            </div>
+        </div>    
+
+
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+        <div>
+        <h1 class="product_title">{{product.name}}</h1>
+        <p><b>₹{{product.price}}</b></p>
+        <h4 class="my_title">Product Description</h4>
+        <p class="text-justify my_text">{{product.description}}</p>
+        {% if product.stock <= 0 %}
+            <p class="text-justify my_text"><b>Out of Stock</b></p>
+        {% else %}
+            <a href="{% url 'cart:add_cart' product.id %}" class="btn btn-success">Add to Cart</a>
+        {% endif %}
+    
+    </div>
+</div>
+</div>
+</div>
+
+{% endblock content %}
